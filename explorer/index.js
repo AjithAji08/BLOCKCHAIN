@@ -11,15 +11,15 @@ const instance = axios.create({
 instance
     .get('/state', {
         params: {
-            address: '71c0c001',
+            address: '1d78d5',
         },
     })
     .then(response => {
         let data = lget(response, 'data.data');
         //console.log('\nPARTIES\n=================\n');
-        for (party of data) {
-            const partyData = party.data;
-            const buf = Buffer.from(partyData, 'base64');
+        for (patient of data) {
+            const patientData = patient.data;
+            const buf = Buffer.from(patientData, 'base64');
             console.log(buf.toString());
         }
     });
@@ -27,15 +27,15 @@ instance
 instance
     .get('/state', {
         params: {
-            address: '71c0c000',
+            address: '1d78d5',
         },
     })
     .then(response => {
         let data = lget(response, 'data.data');
         //console.log('\nVoters\n=================\n');
-        for (party of data) {
-            const partyData = party.data;
-            const buf = Buffer.from(partyData, 'base64');
+        for (patient of data) {
+            const patientData = patient.data;
+            const buf = Buffer.from(patientData, 'base64');
             console.log(buf.toString());
         }
     });
@@ -43,15 +43,15 @@ instance
 instance
     .get('/state', {
         params: {
-            address: '71c0c010',
+            address: '1d78d5',
         },
     })
     .then(response => {
         let data = lget(response, 'data.data');
         //console.log('\nVotes\n=================\n');
-        for (party of data) {
-            const partyData = party.data;
-            const buf = Buffer.from(partyData, 'base64');
+        for (patient of data) {
+            const patientData = patient.data;
+            const buf = Buffer.from(patientData, 'base64');
             console.log(buf.toString());
         }
     });

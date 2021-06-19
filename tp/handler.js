@@ -1,7 +1,7 @@
 const { TransactionHandler } = require('sawtooth-sdk/processor/handler');
 const { InvalidTransaction } = require('sawtooth-sdk/processor/exceptions');
 const cbor = require('cbor');
-const PartyStore = require('./PartyStore');
+const PatientRecord = require('./PatientRecord');
 
 var key_hard = [];
 var list = [];
@@ -34,7 +34,7 @@ var b1=0;
 var { TP_FAMILY, TP_NAMESPACE } = require('./constants');
 
 
-class VotingSystemHandler extends TransactionHandler {
+class ArdsHandler extends TransactionHandler {
     constructor() {
         super(TP_FAMILY, ['1.0'], [TP_NAMESPACE]);
     }
@@ -181,10 +181,10 @@ class VotingSystemHandler extends TransactionHandler {
 
        c1=String(do2_range[b1]).localeCompare(String(do2calce));
        c2=String(vo2_range[b1]).localeCompare(String(vo2calce));
-       console.log(c1);
-		console.log(c2);
+        //console.log(c1);
+		//console.log(c2);
        c3=String(hgb_range[b1]).localeCompare(String(hgbe));
-       console.log(c3);
+       //console.log(c3);
        if (c1==0 || c1==1) {
         temp=1
        }
@@ -216,31 +216,31 @@ class VotingSystemHandler extends TransactionHandler {
      decryption()
     {
 	var idd=this.decryption_process(ide);
-	console.log(idd);
+	//console.log(idd);
 	var hgbd=this.decryption_process(hgbe);
-	console.log(hgbd);
+	//console.log(hgbd);
 	var pao2d=this.decryption_process(pao2e);
-	console.log(pao2d);
+	//console.log(pao2d);
 	var pvo2d=this.decryption_process(pvo2e);
-	console.log(pvo2d);
+	//console.log(pvo2d);
 	var sao2d=this.decryption_process(sao2e);
-	console.log(sao2d);
+	//console.log(sao2d);
 	var svo2d=this.decryption_process(svo2e);
-	console.log(svo2d);
+	//console.log(svo2d);
 	var cod=this.decryption_process(coe);
-	console.log(cod);
+	//console.log(cod);
 	var do2d=this.decryption_process(do2calce);
-	console.log(do2d);
+	//console.log(do2d);
 	var vo2d=this.decryption_process(vo2calce);
-	console.log(vo2d);
-    console.log(ards);
+	//console.log(vo2d);
+    //console.log(ards);
 
     b1++; 
 	}
 
-    async handleAddPartyTransaction(context, payload) {
+    async handleAddPatientTransaction(context, payload) {
         //node sendRequest.js "{"id":1, "hgb":2, "sao2":3, "svo2":4, "pao2":5, "pvo2":6,"co":7}"
-        const partyStore = new PartyStore(context);
+        const patientStore = new PatientRecord(context);
         id = payload.id;
         hgb = payload.hgb;
         sao2 = payload.sao2;
@@ -248,24 +248,24 @@ class VotingSystemHandler extends TransactionHandler {
         pao2 = payload.pao2;
         pvo2 = payload.pvo2;
         co = payload.co;
-        console.log("Patient Id"+payload.id);
-		console.log(payload);
+        //console.log("Patient Id"+payload.id);
+		//console.log(payload);
         this.encryption();
-		console.log("Encryption");
+		//console.log("Encryption");
 	    this.analysis();
-		console.log("analysis");
+		//console.log("analysis");
 	    this.decryption();
-		console.log("decryption");
-        return await partyStore.addParty(payload,ards);
+		//console.log("decryption");
+        return await patientStore.addPatient(payload,ards);
     }
 
 
     async apply(transactionProcessRequest, context) {
-		console.log("apply");
+		//console.log("apply");
         let payload = cbor.decode(transactionProcessRequest.payload);
-        return await this.handleAddPartyTransaction(context, payload);
+        return await this.handleAddPatientTransaction(context, payload);
 		
     }
 }
 
-module.exports = VotingSystemHandler;
+module.exports = ArdsHandler;

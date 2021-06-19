@@ -2,17 +2,19 @@ var { _hash } = require('./lib');
 var { TP_NAMESPACE } = require('./constants');
 var serialise = require('./serialiser');
 
-class PartyStore {
+class PatientRecord {
     constructor(context) {
         this.context = context;
         this.timeout = 500;
     }
 
-    async addParty(party,_ards) {
-        const address = partyAddress(party.id);
-        let partyInfo = { patient_Id: party.id, ards: _ards};
-        let serialised = serialise(partyInfo);
-        console.log(serialised);
+    async addPatient(patient,_ards) {
+		
+        const address = patientAddress(patient.id);
+		
+        let patientInfo = { patient_Id: patient.id, ards: _ards};
+        let serialised = serialise(patientInfo);
+        //console.log(serialised);
         let data = Buffer.from(serialised);
         return await this.context.setState({ [address]: data }, this.timeout);
     }
@@ -32,6 +34,6 @@ class PartyStore {
     // }
 }
 
-const partyAddress = partyId => TP_NAMESPACE + '01' + _hash(partyId).substring(0, 62);
+const patientAddress = patientId => TP_NAMESPACE + '01' + _hash(patientId).substring(0, 62);
 
-module.exports = PartyStore;
+module.exports = PatientRecord;

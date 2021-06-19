@@ -1,5 +1,5 @@
 var { _hash } = require('./lib');
 
-const TP_FAMILY = 'voting_system';
+const TP_FAMILY = 'ards';
 exports.TP_FAMILY = TP_FAMILY;
 exports.TP_NAMESPACE = _hash(TP_FAMILY).substring(0, 6);
